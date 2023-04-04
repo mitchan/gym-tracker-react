@@ -1,4 +1,11 @@
-import { doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import {
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Training } from '../types';
@@ -13,7 +20,7 @@ export async function getTrainings() {
   const q = query(
     trainingCol,
     where('userId', '==', auth.currentUser.uid),
-    // orderBy('lastOpenedAt', 'desc'),
+    orderBy('lastOpenedAt', 'desc'),
   );
   const snapshot = await getDocs(q);
   const list = snapshot.docs.map((doc) => doc.data() as Training);

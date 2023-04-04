@@ -31,6 +31,13 @@ export function TrainingList() {
       ))}
 
       <Button
+        label="Crea scheda"
+        onClick={() => {
+          navigate('/training/create');
+        }}
+      />
+
+      <Button
         label="Esercizi"
         onClick={() => {
           navigate('/exercise');
