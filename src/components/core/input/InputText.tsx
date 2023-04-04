@@ -16,7 +16,7 @@ export function InputText(props: InputTextProps) {
       <input
         type={type}
         name={name}
-        value={props.value}
+        value={props.value === 0 ? '' : props.value}
         disabled={props.disabled}
         className="border border-solid border-gray-400 rounded p-2 text-black"
         onChange={(e) => {

@@ -1,7 +1,7 @@
 export type Training = {
   id: string;
   title: string;
-  lastOpenedAt?: number;
+  lastOpenedAt: number;
 
   // relations
   userId: string;
@@ -19,3 +19,8 @@ export type Exercise = {
   userId: string;
   trainings?: string[];
 };
+
+export type ExerciseFormState = Pick<
+  Exercise,
+  'title' | 'serie' | 'recovery' | 'weight' | 'notes'
+>;

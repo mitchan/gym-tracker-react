@@ -1,27 +1,17 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from 'firebase/firestore';
+import { doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Training } from '../types';
-import { db } from './firebase';
+import { trainingCol } from './firebase';
 import { auth } from './firebase';
-
-const path = 'trainings';
 
 export async function getTrainings() {
   if (!auth.currentUser) {
     return [];
   }
 
-  const coll = collection(db, path);
   const q = query(
-    coll,
+    trainingCol,
     where('userId', '==', auth.currentUser.uid),
     // orderBy('lastOpenedAt', 'desc'),
   );
@@ -35,12 +25,13 @@ export function createTraining(title: string) {
     throw new Error('Cannot create a training if the user is not logged in');
   }
 
-  // check if a traing
   const id = uuidv4();
+  const trainingRef = doc(trainingCol, id);
 
-  return setDoc(doc(db, path, id), {
+  return setDoc(trainingRef, {
     id,
     title,
     userId: auth.currentUser.uid,
+    lastOpenedAt: Date.now(),
   });
 }

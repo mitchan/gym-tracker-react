@@ -1,6 +1,13 @@
-import { getFirestore } from '@firebase/firestore';
+import {
+  collection,
+  CollectionReference,
+  DocumentData,
+  getFirestore,
+} from '@firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+
+import { Exercise, Training } from '../types';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -16,3 +23,11 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const db = getFirestore(app);
+
+// collections
+const createCollection = <T = DocumentData>(collectionName: string) => {
+  return collection(db, collectionName) as CollectionReference<T>;
+};
+
+export const trainingCol = createCollection<Training>('trainings');
+export const exerciseCol = createCollection<Exercise>('exercises');

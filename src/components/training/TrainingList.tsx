@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getTrainings } from '../../firebase/training';
 import { Training } from '../../types';
+import { Button } from '../core/Button';
 import { Card } from '../core/Card';
 
 export function TrainingList() {
@@ -15,7 +16,7 @@ export function TrainingList() {
   }, []);
 
   return (
-    <div>
+    <>
       <h1 className="text-2xl">Schede</h1>
 
       {trainings.map((training) => (
@@ -28,6 +29,13 @@ export function TrainingList() {
           {training.title}
         </Card>
       ))}
-    </div>
+
+      <Button
+        label="Esercizi"
+        onClick={() => {
+          navigate('/exercise');
+        }}
+      />
+    </>
   );
 }
