@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getTrainings } from '../../firebase/training';
 import { Training } from '../../types';
+import { Card } from '../core/Card';
 
 export function TrainingList() {
   const [trainings, setTrainings] = React.useState<Training[]>([]);
@@ -14,17 +15,19 @@ export function TrainingList() {
   }, []);
 
   return (
-    <>
+    <div>
+      <h1 className="text-2xl">Schede</h1>
+
       {trainings.map((training) => (
-        <div
+        <Card
           key={training.id}
           onClick={() => {
             navigate(`/training/${training.id}`);
           }}
         >
           {training.title}
-        </div>
+        </Card>
       ))}
-    </>
+    </div>
   );
 }

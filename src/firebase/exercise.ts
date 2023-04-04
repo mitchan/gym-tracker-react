@@ -8,13 +8,13 @@ import {
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Training } from '../types';
+import { Exercise } from '../types';
 import { db } from './firebase';
 import { auth } from './firebase';
 
-const path = 'trainings';
+const path = 'exercises';
 
-export async function getTrainings() {
+export async function getExercises(trainingId?: string) {
   if (!auth.currentUser) {
     return [];
   }
@@ -23,10 +23,11 @@ export async function getTrainings() {
   const q = query(
     coll,
     where('userId', '==', auth.currentUser.uid),
-    // orderBy('lastOpenedAt', 'desc'),
+    ...(trainingId ? [where('trainings', 'in', [trainingId])] : []),
+    // orderBy('title', 'asc'),
   );
   const snapshot = await getDocs(q);
-  const list = snapshot.docs.map((doc) => doc.data() as Training);
+  const list = snapshot.docs.map((doc) => doc.data() as Exercise);
   return list;
 }
 

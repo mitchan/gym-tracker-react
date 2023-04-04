@@ -1,9 +1,9 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React from 'react';
 
-import { Button } from '../../core/Button';
-import { InputText } from '../../core/input/InputText';
 import { auth } from '../../firebase/firebase';
+import { Button } from '../core/Button';
+import { InputText } from '../core/input/InputText';
 
 export function Login() {
   const [email, setEmail] = React.useState('');

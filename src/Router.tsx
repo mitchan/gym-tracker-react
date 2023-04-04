@@ -1,16 +1,27 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
-import { Login } from './auth/components/Login';
+import { Login } from './components/auth/Login';
 import { TrainingList } from './components/training/TrainingList';
+import { ViewTraining } from './components/training/ViewTraining';
 import { AuthProvider } from './context/AuthProvider';
 
 const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: (
+      <AuthProvider>
+        <Login />,
+      </AuthProvider>
+    ),
+  },
   {
     path: '/',
     element: (
       <>
         <AuthProvider>
-          <Outlet />
+          <main className="p-5">
+            <Outlet />
+          </main>
         </AuthProvider>
       </>
     ),
@@ -20,8 +31,8 @@ const router = createBrowserRouter([
         element: <TrainingList />,
       },
       {
-        path: '/login',
-        element: <Login />,
+        path: '/training/:id',
+        element: <ViewTraining />,
       },
     ],
   },
