@@ -1,11 +1,20 @@
-import { doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import {
+  arrayUnion,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Exercise, ExerciseFormState } from '../types';
 import { exerciseCol } from './firebase';
 import { auth } from './firebase';
 
-export async function getExercises(trainingId?: string) {
+export async function getExercises(trainingId?: string, addExercise = false) {
   if (!auth.currentUser) {
     return [];
   }
@@ -13,9 +22,12 @@ export async function getExercises(trainingId?: string) {
   const q = query(
     exerciseCol,
     where('userId', '==', auth.currentUser.uid),
-    ...(trainingId ? [where('trainings', 'in', [trainingId])] : []),
-    // orderBy('title', 'asc'),
+    ...(trainingId && !addExercise
+      ? [where('trainings', 'array-contains', trainingId)]
+      : []),
+    orderBy('title', 'asc'),
   );
+
   const snapshot = await getDocs(q);
   const list = snapshot.docs.map((doc) => doc.data());
   return list;
@@ -37,5 +49,16 @@ export function createExercise(state: ExerciseFormState): Promise<void> {
     weight: state.weight,
     notes: state.notes,
     userId: auth.currentUser.uid,
+  });
+}
+
+export async function addExerciseToTraining(param: {
+  trainingId: string;
+  exerciseId: string;
+}) {
+  const exerciseRef = doc(exerciseCol, param.exerciseId);
+
+  await updateDoc(exerciseRef, {
+    trainings: arrayUnion(param.trainingId),
   });
 }
