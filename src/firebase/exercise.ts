@@ -1,11 +1,9 @@
 import {
-  arrayUnion,
   doc,
   getDocs,
   orderBy,
   query,
   setDoc,
-  updateDoc,
   where,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
@@ -49,16 +47,5 @@ export function createExercise(state: ExerciseFormState): Promise<void> {
     weight: state.weight,
     notes: state.notes,
     userId: auth.currentUser.uid,
-  });
-}
-
-export async function addExerciseToTraining(param: {
-  trainingId: string;
-  exerciseId: string;
-}) {
-  const exerciseRef = doc(exerciseCol, param.exerciseId);
-
-  await updateDoc(exerciseRef, {
-    trainings: arrayUnion(param.trainingId),
   });
 }

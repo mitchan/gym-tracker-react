@@ -1,26 +1,14 @@
-import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getExercises } from '../../firebase/exercise';
-import { addExerciseToTraining } from '../../firebase/exercise';
-import { Exercise } from '../../types';
+import { addExerciseToTraining } from '../../firebase/training';
+import { useTrainingWithExercises } from '../../hooks/useTrainingWithExercises';
 import { Card } from '../core/Card';
 import { ExerciseCard } from '../exercise/ExerciseCard';
 
 export function AddExercise() {
   const { id } = useParams();
 
-  const [exercises, setExercises] = React.useState<Exercise[]>([]);
-
-  React.useEffect(() => {
-    getExercises(id, true).then((exercises) => {
-      // TODO find a way to do this filter at db
-      const filtered = exercises.filter(
-        (exercise) => id && !exercise.trainings?.includes(id),
-      );
-      setExercises(filtered);
-    });
-  }, [id]);
+  const { exercises } = useTrainingWithExercises({ id });
 
   const navigate = useNavigate();
 

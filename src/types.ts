@@ -5,6 +5,7 @@ export type Training = {
 
   // relations
   userId: string;
+  exercises?: string[];
 };
 
 export type Exercise = {
@@ -17,7 +18,6 @@ export type Exercise = {
 
   // relations
   userId: string;
-  trainings?: string[];
 };
 
 export type ExerciseFormState = Pick<

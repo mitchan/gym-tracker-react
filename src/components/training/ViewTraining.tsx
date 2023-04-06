@@ -1,8 +1,6 @@
-import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getExercises } from '../../firebase/exercise';
-import { Exercise } from '../../types';
+import { useTrainingWithExercises } from '../../hooks/useTrainingWithExercises';
 import { Button } from '../core/Button';
 import { Card } from '../core/Card';
 import { ExerciseCard } from '../exercise/ExerciseCard';
@@ -10,11 +8,7 @@ import { ExerciseCard } from '../exercise/ExerciseCard';
 export function ViewTraining() {
   const { id } = useParams();
 
-  const [exercises, setExercises] = React.useState<Exercise[]>([]);
-
-  React.useEffect(() => {
-    getExercises(id).then(setExercises);
-  }, [id]);
+  const { exercises } = useTrainingWithExercises({ id, showOnlyAdded: true });
 
   const navigation = useNavigate();
 
