@@ -20,6 +20,15 @@ export function ExerciseList() {
     <>
       <h1 className="text-2xl">Esercizi</h1>
 
+      <div className="mb-2">
+        <Button
+          label="Crea esercizio"
+          onClick={() => {
+            navigate('/exercise/create');
+          }}
+        />
+      </div>
+
       {exercises.map((exercise) => (
         <Card key={exercise.id}>
           <ExerciseCard exercise={exercise} />
@@ -27,13 +36,6 @@ export function ExerciseList() {
       ))}
 
       {exercises.length === 0 && <p>Non hai ancora creato nessun esercizio.</p>}
-
-      <Button
-        label="Crea esercizio"
-        onClick={() => {
-          navigate('/exercise/create');
-        }}
-      />
     </>
   );
 }

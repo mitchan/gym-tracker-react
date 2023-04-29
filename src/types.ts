@@ -15,6 +15,8 @@ export type Exercise = {
   recovery: number;
   notes?: string;
   weight: number;
+  count: number;
+  done: boolean;
 
   // relations
   userId: string;

@@ -4,6 +4,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
@@ -47,5 +48,15 @@ export function createExercise(state: ExerciseFormState): Promise<void> {
     weight: state.weight,
     notes: state.notes,
     userId: auth.currentUser.uid,
+    count: 0,
+    done: false,
   });
+}
+
+export function updateExercise(
+  id: string,
+  data: Partial<Exercise>,
+): Promise<void> {
+  const exerciseRef = doc(exerciseCol, id);
+  return updateDoc<Exercise>(exerciseRef, data);
 }

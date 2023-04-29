@@ -1,21 +1,23 @@
 import { Exercise } from '../../types';
+import { Checkbox } from '../core/input/Checkbox';
 import { ExerciseCount } from './ExerciseCount';
 
 type ExerciseCardProps = {
-  exercise: Pick<
-    Exercise,
-    'id' | 'title' | 'recovery' | 'serie' | 'weight' | 'notes'
-  >;
+  exercise: Exercise;
   showCount?: boolean;
+  showCheckbox?: boolean;
 };
 
 export function ExerciseCard(props: ExerciseCardProps) {
-  const { exercise, showCount } = props;
+  const { exercise, showCount, showCheckbox } = props;
 
   return (
     <>
-      <div className="flex justify-between items-end mb-5">
-        <h2 className="text-xl truncate w-3/4">{exercise.title}</h2>
+      <div className="flex flex-col justify-between mb-5">
+        <div className="flex-1 flex justify-start items-center gap-1">
+          {showCheckbox && <Checkbox />}
+          <h2 className="text-xl truncate max-w-full">{exercise.title}</h2>
+        </div>
 
         {exercise.serie}
       </div>
@@ -26,7 +28,7 @@ export function ExerciseCard(props: ExerciseCardProps) {
         {exercise.notes && <li>{exercise.notes}</li>}
       </ul>
 
-      {showCount && <ExerciseCount exerciseId={exercise.id} />}
+      {showCount && <ExerciseCount exercise={exercise} />}
     </>
   );
 }
