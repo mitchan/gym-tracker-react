@@ -3,10 +3,11 @@ type ButtonProps = {
   label: string;
   disabled?: boolean;
   onClick?: () => void;
+  extraClasses?: string;
 };
 
 export function Button(props: ButtonProps) {
-  const { type = 'button', label, disabled, onClick } = props;
+  const { type = 'button', label, disabled, onClick, extraClasses } = props;
 
   return (
     <button
@@ -14,7 +15,7 @@ export function Button(props: ButtonProps) {
       type={type}
       className={`bg-green-700 py-2 px-4 rounded w-full mt-2 text-yellow-300 ${
         disabled ? `opacity-50` : ``
-      }`}
+      } ${extraClasses ?? ''}`}
       {...{ onClick }}
     >
       {label}

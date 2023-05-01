@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getExercises } from '../firebase/exercise';
+import { getExercises, updateExercise } from '../firebase/exercise';
 import { getTraining } from '../firebase/training';
 import { Exercise } from '../types';
 
@@ -54,5 +54,22 @@ export function useTrainingWithExercises(param: Param) {
       });
   }, [id]);
 
-  return { exercises };
+  async function resetCount(): Promise<void> {
+    const promises = exercises.map((exercise) =>
+      updateExercise(exercise.id, {
+        count: 0,
+      }),
+    );
+
+    await Promise.all(promises);
+
+    setExercises(
+      exercises.map((exercise) => ({
+        ...exercise,
+        count: 0,
+      })),
+    );
+  }
+
+  return { exercises, resetCount };
 }

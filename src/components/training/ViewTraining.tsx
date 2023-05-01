@@ -8,13 +8,26 @@ import { ExerciseCard } from '../exercise/ExerciseCard';
 export function ViewTraining() {
   const { id } = useParams();
 
-  const { exercises } = useTrainingWithExercises({ id, showOnlyAdded: true });
+  const { exercises, resetCount } = useTrainingWithExercises({
+    id,
+    showOnlyAdded: true,
+  });
 
   const navigation = useNavigate();
 
   return (
     <>
       <h1 className="text-2xl">Schede</h1>
+
+      {exercises.length > 0 && (
+        <Button
+          label="Reset"
+          extraClasses="mb-2"
+          onClick={() => {
+            resetCount();
+          }}
+        />
+      )}
 
       {exercises.map((exercise) => (
         <Card key={exercise.id}>

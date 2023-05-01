@@ -15,6 +15,12 @@ export function ExerciseCount(props: ExerciseCountProps) {
 
   const [count, setCount] = React.useState(exercise.count ?? 0);
 
+  React.useEffect(() => {
+    if (exercise.count !== count) {
+      setCount(exercise.count);
+    }
+  }, [exercise]);
+
   function updateCount(value: number) {
     updateExercise(exercise.id, { count: value })
       .then(() => {
