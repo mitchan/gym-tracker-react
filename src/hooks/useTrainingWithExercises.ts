@@ -58,6 +58,7 @@ export function useTrainingWithExercises(param: Param) {
     const promises = exercises.map((exercise) =>
       updateExercise(exercise.id, {
         count: 0,
+        done: false,
       }),
     );
 
@@ -67,9 +68,28 @@ export function useTrainingWithExercises(param: Param) {
       exercises.map((exercise) => ({
         ...exercise,
         count: 0,
+        done: false,
       })),
     );
   }
 
-  return { exercises, resetCount };
+  async function toggleDone(exercise: Exercise): Promise<void> {
+    await updateExercise(exercise.id, {
+      done: !exercise.done,
+    });
+
+    const newExercises = exercises.map((e) => {
+      if (e.id === exercise.id) {
+        return {
+          ...exercise,
+          done: !exercise.done,
+        };
+      }
+      return e;
+    });
+
+    setExercises(newExercises);
+  }
+
+  return { exercises, resetCount, toggleDone };
 }

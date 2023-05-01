@@ -8,7 +8,7 @@ import { ExerciseCard } from '../exercise/ExerciseCard';
 export function ViewTraining() {
   const { id } = useParams();
 
-  const { exercises, resetCount } = useTrainingWithExercises({
+  const { exercises, resetCount, toggleDone } = useTrainingWithExercises({
     id,
     showOnlyAdded: true,
   });
@@ -29,11 +29,20 @@ export function ViewTraining() {
         />
       )}
 
-      {exercises.map((exercise) => (
-        <Card key={exercise.id}>
-          <ExerciseCard exercise={exercise} showCount />
-        </Card>
-      ))}
+      {exercises
+        .filter((exercise) => !exercise.done)
+        .map((exercise) => (
+          <Card key={exercise.id}>
+            <ExerciseCard
+              exercise={exercise}
+              onToggleDone={() => {
+                toggleDone(exercise);
+              }}
+              showCount
+              showCheckbox
+            />
+          </Card>
+        ))}
 
       {exercises.length === 0 && (
         <p>Non hai ancora aggiunto nessun esercizio a questa scheda.</p>
