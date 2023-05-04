@@ -4,15 +4,17 @@ type InputTextProps = {
   name: string;
   value?: string | number;
   disabled?: boolean;
+  hideLabel?: boolean;
   onChange?: (value: string) => void;
+  extraContainerClasses?: string;
 };
 
 export function InputText(props: InputTextProps) {
   const { type = 'text', name, label } = props;
 
   return (
-    <div className="flex flex-col mb-1">
-      {type !== 'hidden' && <label>{label}</label>}
+    <div className={`flex flex-col mb-1 ${props.extraContainerClasses ?? ''}`}>
+      {type !== 'hidden' && !props.hideLabel && <label>{label}</label>}
       <input
         type={type}
         name={name}
@@ -22,6 +24,7 @@ export function InputText(props: InputTextProps) {
         onChange={(e) => {
           props.onChange?.(e.target.value);
         }}
+        placeholder={label}
       />
     </div>
   );

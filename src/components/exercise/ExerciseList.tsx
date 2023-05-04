@@ -2,9 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { getExercises } from '../../firebase/exercise';
+import { useFilteredExercises } from '../../hooks/useFilteredExercises';
 import { Exercise } from '../../types';
 import { Button } from '../core/Button';
 import { Card } from '../core/Card';
+import { InputText } from '../core/input/InputText';
 import { ExerciseCard } from './ExerciseCard';
 
 export function ExerciseList() {
@@ -13,23 +15,38 @@ export function ExerciseList() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getExercises().then(setExercises);
+    getExercises().then((exercises) => {
+      setExercises(exercises);
+    });
   }, []);
+
+  const { debouceChange, filteredExercises } = useFilteredExercises({
+    exercises,
+  });
 
   return (
     <>
       <h1 className="text-2xl">Esercizi</h1>
 
-      <div className="mb-2">
-        <Button
-          label="Crea esercizio"
-          onClick={() => {
-            navigate('/exercise/create');
-          }}
-        />
-      </div>
+      <Button
+        label="Crea esercizio"
+        extraClasses="mb-2"
+        onClick={() => {
+          navigate('/exercise/create');
+        }}
+      />
 
-      {exercises.map((exercise) => (
+      {exercises.length > 0 && (
+        <InputText
+          label="Cerca"
+          name="search"
+          extraContainerClasses="mb-2"
+          onChange={debouceChange}
+          hideLabel
+        />
+      )}
+
+      {filteredExercises.map((exercise) => (
         <Card key={exercise.id}>
           <ExerciseCard exercise={exercise} />
         </Card>
