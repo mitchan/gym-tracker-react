@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { Login } from './components/auth/Login';
 import { CreateExercise } from './components/exercise/CreateExercise';
 import { ExerciseList } from './components/exercise/ExerciseList';
+import { UpdateExercise } from './components/exercise/UpdateExercise';
 import { AddExercise } from './components/training/AddExercise';
 import { CreateTraining } from './components/training/CreateTraining';
 import { TrainingList } from './components/training/TrainingList';
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/exercise/create',
         element: <CreateExercise />,
+      },
+      {
+        path: '/exercise/:id',
+        element: <UpdateExercise />,
       },
     ],
   },

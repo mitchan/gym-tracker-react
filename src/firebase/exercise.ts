@@ -32,6 +32,23 @@ export async function getExercises(trainingId?: string, addExercise = false) {
   return list;
 }
 
+export async function getExerciseById(
+  id: string,
+): Promise<Exercise | undefined> {
+  if (!auth.currentUser) {
+    throw new Error('Cannot get a training if the user is not logged in');
+  }
+
+  const q = query(
+    exerciseCol,
+    where('userId', '==', auth.currentUser.uid),
+    where('id', '==', id),
+  );
+  const snapshot = await getDocs(q);
+  const list = snapshot.docs.map((doc) => doc.data() as Exercise);
+  return list[0];
+}
+
 export function createExercise(state: ExerciseFormState): Promise<void> {
   if (!auth.currentUser) {
     throw new Error('Cannot create an exercise if the user is not logged in');

@@ -47,7 +47,12 @@ export function ExerciseList() {
       )}
 
       {filteredExercises.map((exercise) => (
-        <Card key={exercise.id}>
+        <Card
+          key={exercise.id}
+          onClick={() => {
+            navigate(`/exercise/${exercise.id}`);
+          }}
+        >
           <ExerciseCard exercise={exercise} />
         </Card>
       ))}

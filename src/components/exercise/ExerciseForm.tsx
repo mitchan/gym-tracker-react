@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { createExercise } from '../../firebase/exercise';
+import { createExercise, updateExercise } from '../../firebase/exercise';
 import { Exercise, ExerciseFormState } from '../../types';
 import { Button } from '../core/Button';
 import { InputText } from '../core/input/InputText';
@@ -29,14 +29,13 @@ export function ExerciseForm(props: ExerciseFormProps) {
     setLoading(true);
 
     // TODO add validation
-
     try {
       if (exercise) {
-        // TODO update
+        await updateExercise(exercise.id, formState);
       } else {
         await createExercise(formState);
-        navigate('/exercise');
       }
+      navigate('/exercise');
     } catch (error) {
       // TODO handle error
       console.error(error);
