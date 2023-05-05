@@ -14,22 +14,19 @@ export function ExerciseCard(props: ExerciseCardProps) {
 
   return (
     <>
-      <div className="flex flex-col justify-between mb-5">
-        <div className="flex-1 flex justify-start items-center gap-1">
-          {showCheckbox && (
-            <Checkbox
-              extraClasses="mr-2"
-              checked={exercise.done}
-              onChange={props.onToggleDone}
-            />
-          )}
-          <h2 className="text-xl truncate max-w-full">{exercise.title}</h2>
-        </div>
-
-        {exercise.serie}
+      <div className="flex-1 flex justify-start items-center gap-1 mb-2">
+        {showCheckbox && (
+          <Checkbox
+            extraClasses="mr-2"
+            checked={exercise.done}
+            onChange={props.onToggleDone}
+          />
+        )}
+        <h2 className="text-xl truncate max-w-full">{exercise.title}</h2>
       </div>
 
       <ul>
+        <li>Serie: {exercise.serie}</li>
         <li>Recupero: {exercise.recovery}</li>
         {exercise.weight > 0 && <li>Peso: {exercise.weight} Kg</li>}
         {exercise.notes && <li>{exercise.notes}</li>}
