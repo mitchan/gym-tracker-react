@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import { Login } from './components/auth/Login';
+import { Header } from './components/core/Header';
 import { CreateExercise } from './components/exercise/CreateExercise';
 import { ExerciseList } from './components/exercise/ExerciseList';
 import { UpdateExercise } from './components/exercise/UpdateExercise';
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <AuthProvider>
+          <Header />
           <main className="p-5">
             <Outlet />
           </main>
