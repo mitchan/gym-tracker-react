@@ -1,5 +1,7 @@
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { updateTraining } from '../../firebase/training';
 import { useTrainingWithExercises } from '../../hooks/useTrainingWithExercises';
 import { Button } from '../core/Button';
 import { Card } from '../core/Card';
@@ -12,6 +14,19 @@ export function ViewTraining() {
     id,
     showOnlyAdded: true,
   });
+
+  React.useEffect(() => {
+    if (!id) {
+      return;
+    }
+
+    // update last opened at
+    updateTraining(id, { lastOpenedAt: new Date().getTime() }).catch(
+      (error) => {
+        console.error(error);
+      },
+    );
+  }, [id]);
 
   const navigation = useNavigate();
 

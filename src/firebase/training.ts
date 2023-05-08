@@ -60,6 +60,11 @@ export async function getTraining(uuid: string): Promise<Training | undefined> {
   return list[0];
 }
 
+export async function updateTraining(id: string, data: Partial<Training>) {
+  const trainingRef = doc(trainingCol, id);
+  return updateDoc<Training>(trainingRef, data);
+}
+
 export async function addExerciseToTraining(param: {
   trainingId: string;
   exerciseId: string;
