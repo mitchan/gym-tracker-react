@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       <>
         <AuthProvider>
           <Header />
-          <main className="p-5">
+          <main className="p-5 mt-10">
             <Outlet />
           </main>
         </AuthProvider>
