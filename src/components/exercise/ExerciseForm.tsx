@@ -35,7 +35,7 @@ export function ExerciseForm(props: ExerciseFormProps) {
       } else {
         await createExercise(formState);
       }
-      navigate('/exercise');
+      navigate(-1);
     } catch (error) {
       // TODO handle error
       console.error(error);

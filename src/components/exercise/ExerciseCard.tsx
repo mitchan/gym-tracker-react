@@ -1,5 +1,9 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { Exercise } from '../../types';
 import { Checkbox } from '../core/input/Checkbox';
+import styles from './ExerciseCard.module.css';
 import { ExerciseCount } from './ExerciseCount';
 
 type ExerciseCardProps = {
@@ -14,7 +18,7 @@ export function ExerciseCard(props: ExerciseCardProps) {
 
   return (
     <>
-      <div className="flex-1 flex justify-start items-center gap-1 mb-2">
+      <div className={styles.header}>
         {showCheckbox && (
           <Checkbox
             extraClasses="mr-2"
@@ -22,7 +26,9 @@ export function ExerciseCard(props: ExerciseCardProps) {
             onChange={props.onToggleDone}
           />
         )}
-        <h2 className="text-xl truncate max-w-full">{exercise.title}</h2>
+        <Link to={`/exercise/${exercise.id}`} className={styles.link}>
+          {exercise.title}
+        </Link>
       </div>
 
       <ul>

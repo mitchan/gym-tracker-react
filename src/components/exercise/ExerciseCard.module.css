@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: var(--size-2);
+  margin-bottom: var(--size-2);
+}
+
+.link {
+  flex-grow: 1;
+  overflow: hidden;
+  font-size: 1.25rem;
+  font-weight: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

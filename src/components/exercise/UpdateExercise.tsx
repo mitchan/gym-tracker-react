@@ -23,9 +23,5 @@ export function UpdateExercise() {
     return null;
   }
 
-  return (
-    <>
-      <ExerciseForm exercise={exercise} />
-    </>
-  );
+  return <ExerciseForm exercise={exercise} />;
 }
