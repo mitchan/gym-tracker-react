@@ -3,9 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { updateTraining } from '../../firebase/training';
 import { useTrainingWithExercises } from '../../hooks/useTrainingWithExercises';
+import { Exercise } from '../../types';
 import { Button } from '../core/Button';
 import { Card } from '../core/Card';
 import { ExerciseCard } from '../exercise/ExerciseCard';
+import styles from './ViewTraining.module.css';
 
 export function ViewTraining() {
   const { id } = useParams();
@@ -14,6 +16,23 @@ export function ViewTraining() {
     id,
     showOnlyAdded: true,
   });
+
+  const { done, undone } = React.useMemo(
+    () =>
+      exercises.reduce<{ done: Exercise[]; undone: Exercise[] }>(
+        (acc, exercise) => {
+          if (exercise.done) {
+            acc.done.push(exercise);
+          } else {
+            acc.undone.push(exercise);
+          }
+
+          return acc;
+        },
+        { done: [], undone: [] },
+      ),
+    [exercises],
+  );
 
   React.useEffect(() => {
     if (!id) {
@@ -32,32 +51,44 @@ export function ViewTraining() {
 
   return (
     <>
-      <h1 className="text-2xl">Schede</h1>
+      <h1>Schede</h1>
 
       {exercises.length > 0 && (
         <Button
           label="Reset"
-          extraClasses="mb-2"
+          extraClasses={styles['reset-button']}
           onClick={() => {
             resetCount();
           }}
         />
       )}
 
-      {exercises
-        .filter((exercise) => !exercise.done)
-        .map((exercise) => (
-          <Card key={exercise.id}>
-            <ExerciseCard
-              exercise={exercise}
-              onToggleDone={() => {
-                toggleDone(exercise);
-              }}
-              showCount
-              showCheckbox
-            />
-          </Card>
-        ))}
+      {undone.map((exercise) => (
+        <Card key={exercise.id}>
+          <ExerciseCard
+            exercise={exercise}
+            onToggleDone={() => {
+              toggleDone(exercise);
+            }}
+            showCount
+            showCheckbox
+          />
+        </Card>
+      ))}
+
+      {done.length > 0 && <h6>Esercizi completati</h6>}
+
+      {done.map((exercise) => (
+        <Card key={exercise.id}>
+          <ExerciseCard
+            exercise={exercise}
+            onToggleDone={() => {
+              toggleDone(exercise);
+            }}
+            showCheckbox
+          />
+        </Card>
+      ))}
 
       {exercises.length === 0 && (
         <p>Non hai ancora aggiunto nessun esercizio a questa scheda.</p>
