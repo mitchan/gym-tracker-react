@@ -4,6 +4,7 @@ import React from 'react';
 import { auth } from '../../firebase/firebase';
 import { Button } from '../core/Button';
 import { InputText } from '../core/input/InputText';
+import styles from './login.module.css';
 
 export function Login() {
   const [email, setEmail] = React.useState('');
@@ -17,8 +18,8 @@ export function Login() {
   }
 
   return (
-    <div className="h-full flex justify-center items-center">
-      <form onSubmit={handleSubmit} className="px-5 w-full">
+    <div className={styles['login-container']}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <InputText
           label="Email"
           name="email"

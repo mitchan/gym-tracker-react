@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --size-2: 0.5rem;
+  --size-4: 1rem;
+  --size-6: 1.5rem;
+  --size-8: 2rem;
+}
+
 body {
-    font-family: "Roboto";
+  font-family: 'Roboto';
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+  margin-bottom: var(--size-2);
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1rem;
+  margin-bottom: var(--size-2);
 }
