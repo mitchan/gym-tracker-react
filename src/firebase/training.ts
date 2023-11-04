@@ -1,6 +1,7 @@
 import {
   arrayUnion,
   doc,
+  DocumentData,
   getDocs,
   orderBy,
   query,
@@ -62,7 +63,7 @@ export async function getTraining(uuid: string): Promise<Training | undefined> {
 
 export async function updateTraining(id: string, data: Partial<Training>) {
   const trainingRef = doc(trainingCol, id);
-  return updateDoc<Training>(trainingRef, data);
+  return updateDoc<Training, DocumentData>(trainingRef, data);
 }
 
 export async function addExerciseToTraining(param: {

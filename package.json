@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "fmt:check": "prettier --check .",
-    "fmt:write": "prettier --write ."
+    "fmt:write": "prettier --write .",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.8",

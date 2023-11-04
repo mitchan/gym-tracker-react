@@ -1,5 +1,6 @@
 import {
   doc,
+  DocumentData,
   getDocs,
   orderBy,
   query,
@@ -57,7 +58,7 @@ export function createExercise(state: ExerciseFormState): Promise<void> {
   const id = uuidv4();
   const exerciseRef = doc(exerciseCol, id);
 
-  return setDoc<Exercise>(exerciseRef, {
+  return setDoc<Exercise, DocumentData>(exerciseRef, {
     id,
     title: state.title,
     recovery: state.recovery,
@@ -75,5 +76,5 @@ export function updateExercise(
   data: Partial<Exercise>,
 ): Promise<void> {
   const exerciseRef = doc(exerciseCol, id);
-  return updateDoc<Exercise>(exerciseRef, data);
+  return updateDoc<Exercise, DocumentData>(exerciseRef, data);
 }
