@@ -7,6 +7,7 @@ import { ExerciseList } from './components/exercise/ExerciseList';
 import { UpdateExercise } from './components/exercise/UpdateExercise';
 import { AddExercise } from './components/training/AddExercise';
 import { CreateTraining } from './components/training/CreateTraining';
+import { DeleteTraining } from './components/training/DeleteTraining';
 import { TrainingList } from './components/training/TrainingList';
 import { ViewTraining } from './components/training/ViewTraining';
 import { AuthProvider } from './context/AuthProvider';
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: '/training/:id/add-exercise',
         element: <AddExercise />,
+      },
+      {
+        path: '/training/:id/delete',
+        element: <DeleteTraining />,
       },
       {
         path: '/exercise',

@@ -1,5 +1,6 @@
 import {
   arrayUnion,
+  deleteDoc,
   doc,
   DocumentData,
   getDocs,
@@ -44,6 +45,11 @@ export function createTraining(title: string) {
     userId: auth.currentUser.uid,
     lastOpenedAt: Date.now(),
   });
+}
+
+export function deleteTraining(uuid: string) {
+  const trainingRef = doc(trainingCol, uuid);
+  return deleteDoc<Training, DocumentData>(trainingRef);
 }
 
 export async function getTraining(uuid: string): Promise<Training | undefined> {

@@ -100,6 +100,15 @@ export function ViewTraining() {
           navigation(`/training/${id}/add-exercise`);
         }}
       />
+
+      <Button
+        label="Cancella scheda"
+        onClick={() => {
+          navigation(`/training/${id}/delete`, {
+            preventScrollReset: false,
+          });
+        }}
+      />
     </>
   );
 }
